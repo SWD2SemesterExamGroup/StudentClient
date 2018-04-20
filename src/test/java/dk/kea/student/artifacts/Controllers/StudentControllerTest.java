@@ -15,8 +15,9 @@ public class StudentControllerTest
         // Assign
         StudentController _controller = new StudentController();
         // Act
-        String result = _controller.index();
+        String result = _controller.home();
         // Assert
         Assert.assertNotNull(result);
+        Assert.assertEquals(result, "index");
     }
 }
