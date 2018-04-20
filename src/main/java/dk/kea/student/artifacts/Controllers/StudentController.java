@@ -1,6 +1,7 @@
 package dk.kea.student.artifacts.Controllers;
 
 import dk.kea.student.artifacts.ProjectLocals.ProjectTestHelpers;
+import dk.kea.student.artifacts.ViewModels.ViewModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,11 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class StudentController
 {
+    private ViewModel viewModel = new ViewModel();
+
     @RequestMapping("/")
     public String home(Model model) {
         model.addAttribute("studentID", 1);
         model.addAttribute("attKey", "");
         model.addAttribute("isAccepted", false);
+        model.addAttribute("isError", false);
 
         return "index";
     }
@@ -25,18 +29,21 @@ public class StudentController
                                 Model model) {
         System.out.println(studentID);
         System.out.println(key);
-        model.addAttribute("StudentID", 1);
+        model.addAttribute("studentID", studentID);
         // Check Key to Static right now
         // TODO: Change to get information from ESB/Mediator
-        boolean accept = false;
-        String errorMessage = "";
+        boolean accept = false, isError = false;
+        String errorMessage = "Wrong Key";
+        // TODO: Add other checks to Key input from html
+        // TODO: Change static key call to Call ESB/Mediator to confirm key
         if (key.equals(ProjectTestHelpers.KEY))
             accept = true;
         else
-            errorMessage = "Wrong Key";
+            isError = true;
         model.addAttribute("isAccepted", accept);
-        model.addAttribute("error", errorMessage);
+        model.addAttribute("errorMessage", errorMessage);
         model.addAttribute("attKey", "");
+        model.addAttribute("isError", isError);
 
         return "index";
     }
