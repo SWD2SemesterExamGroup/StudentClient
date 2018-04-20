@@ -3,7 +3,8 @@ package dk.kea.student.artifacts.ViewModels.Entities;
 public class MainViewModel
 {
     private int studentID;
-    private boolean isAccepted;
+    private boolean isAccepted, accept = false, isError = false;
+    private String errorMessage;
 
     public MainViewModel()
     {
